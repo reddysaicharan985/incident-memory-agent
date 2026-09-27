@@ -1,4 +1,5 @@
 import html
+import hmac
 import os
 from datetime import date
 
@@ -729,6 +730,35 @@ Current details: {incident_details.strip()}
 # =========================================================
 
 elif page == "Record resolution":
+    admin_password = os.getenv("ADMIN_PASSWORD")
+
+    if not admin_password:
+        st.error("Admin access has not been configured.")
+        st.stop()
+
+    entered_password = st.text_input(
+        "Admin password",
+        type="password",
+        placeholder="Enter the admin password",
+        key="record_resolution_admin_password",
+    )
+
+    if not entered_password:
+        st.info(
+            "This page is restricted because it writes confirmed "
+            "incidents into persistent memory."
+        )
+        st.stop()
+
+    if not hmac.compare_digest(
+        entered_password,
+        admin_password,
+    ):
+        st.error("Incorrect admin password.")
+        st.stop()
+
+    st.success("Admin access granted.")
+
     st.markdown(
         """
         <div class="section-heading">
