@@ -35,11 +35,15 @@ hindsight = Hindsight(
 
 groq = Groq(api_key=groq_key)
 
-current_incident = """
-The checkout service started returning HTTP 500 errors immediately
-after today's deployment. The engineering team has not yet confirmed
-the root cause.
-"""
+print("=== INCIDENT MEMORY AGENT ===")
+
+current_incident = input(
+    "Describe the current incident: "
+).strip()
+
+if not current_incident:
+    hindsight.close()
+    raise ValueError("Current incident description cannot be empty.")
 
 try:
     memory_response = hindsight.recall(
@@ -72,11 +76,11 @@ Create a concise incident investigation brief.
 STRICT RULES:
 - Current facts must contain only information explicitly written in
   CURRENT INCIDENT.
-- If scope, logs, impact, actions or root cause are not provided,
+- If scope, logs, impact, actions, or root cause are not provided,
   label them as unknown.
 - Historical memories are relevant evidence, not proof of the current cause.
 - Do not claim that an investigation or remediation action has happened.
-- Do not invent logs, endpoints, systems, users or technical results.
+- Do not invent logs, endpoints, systems, users, or technical results.
 - Keep the complete answer below 450 words.
 - Use short bullet points, not tables.
 
@@ -96,7 +100,7 @@ Use these sections:
                 "content": (
                     "You are a careful software incident-response agent. "
                     "Use historical memories as evidence, not as proof. "
-                    "Never invent facts, logs, causes or completed actions."
+                    "Never invent facts, logs, causes, or completed actions."
                 ),
             },
             {
@@ -108,7 +112,7 @@ Use these sections:
         max_completion_tokens=1000,
     )
 
-    print("=== HINDSIGHT MEMORIES USED ===")
+    print("\n=== HINDSIGHT MEMORIES USED ===")
     print(memory_context)
 
     print("\n=== GROQ INVESTIGATION BRIEF ===")
