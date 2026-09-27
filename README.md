@@ -358,3 +358,58 @@ GitHub: [reddysaicharan985](https://github.com/reddysaicharan985)
 ## License
 
 This project is licensed under the terms provided in the repository’s `LICENSE` file.
+## Live MVP
+
+**Public application:** [Open Incident Memory Agent](https://incident-memory-agent-saicharan.streamlit.app)
+
+**Deployment status:** Live on Streamlit Community Cloud
+
+The application uses:
+
+- Hindsight for persistent incident memory
+- Groq for evidence-aware incident investigation
+- Streamlit for the interactive interface
+- A protected admin workflow for recording confirmed resolutions
+
+## 60-Second Reviewer Test
+
+Open the live application and select **New investigation**.
+
+Enter the following values:
+
+- **Service:** `order-service`
+- **Environment:** `Production`
+- **Severity:** `Unknown`
+
+Use this incident description:
+
+> The order service is returning HTTP 500 errors after today's deployment. The root cause has not yet been confirmed.
+
+Run the investigation comparison.
+
+### Expected result
+
+The **Without memory** side should provide general troubleshooting steps.
+
+The **With Hindsight** side should:
+
+- Retrieve a similar historical order-service incident
+- Identify a previously missed database migration as relevant evidence
+- Recommend checking deployment migrations, logs and runtime configuration
+- Keep the current root cause marked as unconfirmed
+- Warn that historical evidence is not proof of the present cause
+
+Expand **View retrieved memory candidates** to inspect the memories supplied to the reasoning model.
+
+## Persistent Learning Loop
+
+After engineers confirm an incident's root cause and resolution, the information can be recorded in Hindsight. Future investigations can then retrieve and use that operational knowledge.
+
+The **Record resolution** page is protected with an administrator password because it writes permanent information into the shared memory bank. Public reviewers can fully test incident investigation without this password.
+
+## Demo Safety
+
+- API keys are stored only in Streamlit Secrets and the local `.env` file.
+- Real secrets are excluded from GitHub.
+- Public users can investigate incidents but cannot modify persistent memory.
+- Historical incidents are treated as supporting evidence, never automatic proof.
