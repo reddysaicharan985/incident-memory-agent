@@ -413,3 +413,8 @@ The **Record resolution** page is protected with an administrator password becau
 - Real secrets are excluded from GitHub.
 - Public users can investigate incidents but cannot modify persistent memory.
 - Historical incidents are treated as supporting evidence, never automatic proof.
+## Video Walkthrough
+
+Watch the complete Incident Memory Agent demonstration:
+
+https://youtu.be/nkVSZ7bMUVk
