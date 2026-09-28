@@ -418,3 +418,9 @@ The **Record resolution** page is protected with an administrator password becau
 Watch the complete Incident Memory Agent demonstration:
 
 https://youtu.be/nkVSZ7bMUVk
+
+## Published Content
+
+- Technical article: https://dev.to/reddysaicharan985/how-hindsight-made-incident-advice-specific-447b
+- LinkedIn post: https://lnkd.in/p/dfABp8Vm
+- Reddit discussion: https://www.reddit.com/r/aiagents/comments/1ws28a8/how_hindsight_made_my_incident_agent_less_generic/
